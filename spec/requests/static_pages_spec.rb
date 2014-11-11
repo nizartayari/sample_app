@@ -1,48 +1,33 @@
 require 'rails_helper'
-require 'spec_helper'
+require 'support/utilities.rb'
 
 describe "static pages" do
   
+  subject { page }
+
   describe "home page" do
-
-    it "should have the content 'Sample App'" do
-      visit '/static_pages/home' 
-      expect(page).to have_content('Sample App')
-    end 
-
-    it "should have the right title" do
-      visit '/static_pages/home'
-      expect(page).to have_title('home')
-    end
-
+    before { visit root_path }
+    it { is_expected.to have_content('Sample App') }
+    it { is_expected.to have_title(full_title('')) }
+    it { is_expected.not_to have_title('| home') }
   end
 
   describe "help page" do
-
-    it "should have the content 'help'" do
-      visit '/static_pages/help'
-      expect(page).to have_content('help')
-    end	
-
-    it "should have the right title" do
-      visit '/static_pages/help'
-      expect(page).to have_title('Help')
-    end
-
+    before { visit help_path }
+    it { is_expected.to have_content('help') }
+    it { is_expected.to have_title(full_title('Help')) }
   end
 
   describe "about page" do
+    before { visit about_path } 
+    it { is_expected.to have_content('About Us') }
+    it { is_expected.to have_title(full_title('About Us')) }
+  end
 
-    it "should have content 'About Us'" do
-      visit '/static_pages/about'
-      expect(page).to have_content('About Us')
-    end
-
-    it "should have the right title" do
-      visit '/static_pages/about'
-      expect(page).to have_title('About Us')
-    end
-
-  end	
+  describe "contact page" do
+    before { visit contact_path }
+    it { is_expected.to have_content('Contact') }
+    it { is_expected.to have_title(full_title('Contact')) }
+  end
 
 end
